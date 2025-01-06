@@ -47,6 +47,10 @@ GRANT ALL PRIVILEGES ON speaklar_api.* TO 'speaklar_api'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
 
+
+sudo chown -R www-data:www-data /var/www/speaklar_api
+sudo chmod -R 775 /var/www/speaklar_api/storage /var/www/speaklar_api/bootstrap/cache
+
 ?>
 
 

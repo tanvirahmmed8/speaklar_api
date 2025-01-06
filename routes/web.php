@@ -4,7 +4,7 @@ use App\Http\Controllers\WesternCallController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-   // return view('welcome');
+    return view('welcome');
 //    $collection = updateCallData(41);
 //    $response = json_decode($collection->response);
 //  $response->uuid;
