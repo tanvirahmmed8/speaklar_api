@@ -257,7 +257,9 @@ function updateCallData($id)
 {
 
     $call = WesternCall::find($id);
-
+    if(!$call){
+        return false;
+    }
     // API endpoint
     $url = 'https://ai.speaklar.com/api/api.php?id=call_details';
 
@@ -377,6 +379,10 @@ function updateCallDataPai($id)
 {
 
     $call = Powerinai::find($id);
+
+    if(!$call){
+        return false;
+    }
 
     // API endpoint
     $url = 'https://powerinai.speaklar.com/api/api.php?id=call_details';
