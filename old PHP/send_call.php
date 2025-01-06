@@ -40,21 +40,7 @@ if (curl_errno($ch)) {
 // Close the cURL session
 curl_close($ch);
 
-
-CREATE DATABASE speaklar_api;
-CREATE USER 'speaklar_api'@'localhost' IDENTIFIED BY 'Erty^%^%fgxhjhs162FGF$';
-GRANT ALL PRIVILEGES ON speaklar_api.* TO 'speaklar_api'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
-
-
-sudo chown -R www-data:www-data /var/www/speaklar_api
-sudo chmod -R 775 /var/www/speaklar_api/storage /var/www/speaklar_api/bootstrap/cache
-
 ?>
-
-
-
 
 
 

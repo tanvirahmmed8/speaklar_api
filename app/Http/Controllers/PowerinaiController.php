@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WesternCall;
+use App\Models\Powerinai;
 use Illuminate\Http\Request;
 
-class WesternCallController extends Controller
+class PowerinaiController extends Controller
 {
     public function sendCall(Request $request)
     {
@@ -13,7 +13,7 @@ class WesternCallController extends Controller
         $cleanedPhone = removeCountryCode($request->phone);
 
         // API endpoint
-        $url = 'https://ai.speaklar.com/api/api.php?id=call';
+        $url = 'https://powerinai.speaklar.com/api/api.php?id=call';
 
         // API authorization token
         $authToken = '4a9273911b5098280e9cbc';
@@ -144,7 +144,7 @@ class WesternCallController extends Controller
         // 5.	Zayed University
         // ",
         //     "system_prompt" => $request->customData['call_prompt'] ?? $request->call_prompt,
-        //     "webhook" => "http://68.183.189.27/western/callback-call",
+        //     "webhook" => "http://68.183.189.27/powerinai/callback-call",
         //     "webhook_prompt" => '{"name":...,
         //     "country":...,
         //     "subject":...,
@@ -187,7 +187,7 @@ class WesternCallController extends Controller
 
             // "webhook_prompt" => "{\'name\':\'What is the student\’s name?\',\'country\':\'Which country does the student want to study in?\',\'subject\':\'What subject does the student want to pursue?\',\'program\':\'Please specify the academic program the student is interested in.\',\'IELTS_status\':\'What is the student\’s current IELTS status? (e.g., not taken, band score)\',\'CGPA\':\'What is the student\’s current CGPA or grade point average?\',\'is_interested\':\'Is the student interested in this opportunity? (yes/no/maybe)\',\'call_summary\':\'Please summarize this conversation for future reference regarding the student.\'}",
 
-            "webhook" => "http://68.183.189.27/western/callback-call",
+            "webhook" => "http://68.183.189.27/powerinai/callback-call",
         ];
 
         // Initialize cURL
@@ -232,7 +232,7 @@ class WesternCallController extends Controller
         }
 
 
-        $callInfo = new WesternCall();
+        $callInfo = new Powerinai();
         $callInfo->name = $request->full_name;
         $callInfo->phone = $request->phone;
         $callInfo->call_id = $call_id;
@@ -252,11 +252,11 @@ class WesternCallController extends Controller
         if (isset($request->uuid)) {
             $call_id = $request->uuid;
 
-            if (WesternCall::where('call_id', $call_id)->exists()) {
-                $callInfo = WesternCall::where('call_id', $call_id)->first();
+            if (Powerinai::where('call_id', $call_id)->exists()) {
+                $callInfo = Powerinai::where('call_id', $call_id)->first();
                 $need_update = false;
             } else {
-                $callInfo = new WesternCall();
+                $callInfo = new Powerinai();
                 $callInfo->call_id = $call_id;
                 $callInfo->name = "inbound";
             }
@@ -264,7 +264,7 @@ class WesternCallController extends Controller
             $callInfo->response = json_encode($request->all());
             $callInfo->save();
         } else {
-            $callInfo = new WesternCall();
+            $callInfo = new Powerinai();
             $callInfo->name = $call_id;
             $callInfo->response = json_encode($request->all());
             $callInfo->save();
@@ -274,7 +274,7 @@ class WesternCallController extends Controller
 
         if($need_update){
             sleep(3);
-            updateCallData($callInfo->id);
+            updateCallDataPai($callInfo->id);
         }
 
         return response()->json($callInfo, 200);
@@ -285,14 +285,14 @@ class WesternCallController extends Controller
 
         $id = isset($request->id) ? $request->id : 'outbound';
         // API endpoint
-         $url = "https://ai.speaklar.com/api/api.php?id=$id";
+         $url = "https://powerinai.speaklar.com/api/api.php?id=$id";
 
         // API authorization token
         $authToken = '4a9273911b5098280e9cbc';
 
         // Data to send in the POST request
         $data = [
-            "webhook" => "http://68.183.189.27/western/callback-call",
+            "webhook" => "http://68.183.189.27/powerinai/callback-call",
             "webhook_prompt" => '{
             "name":...,
             "country":...,
