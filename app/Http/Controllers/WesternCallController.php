@@ -159,15 +159,25 @@ class WesternCallController extends Controller
         // ];
 
 
+        // $webhook_prompt = [
+        //     'name' => 'What is the student’s name?',
+        //     'country' => 'Which country does the student want to study in?',
+        //     'subject' => 'What subject does the student want to pursue?',
+        //     'program' => 'Please specify the academic program the student is interested in.',
+        //     'IELTS_status' => 'What is the student’s current IELTS status? (e.g., not taken, band score)',
+        //     'CGPA' => 'What is the student’s current CGPA or grade point average?',
+        //     'is_interested' => 'Is the student interested in this opportunity? (yes/no/maybe)',
+        //     'call_summary' => 'Please summarize this conversation for future reference regarding the student.'
+        // ];
         $webhook_prompt = [
-            'name' => 'What is the student’s name?',
-            'country' => 'Which country does the student want to study in?',
-            'subject' => 'What subject does the student want to pursue?',
-            'program' => 'Please specify the academic program the student is interested in.',
-            'IELTS_status' => 'What is the student’s current IELTS status? (e.g., not taken, band score)',
-            'CGPA' => 'What is the student’s current CGPA or grade point average?',
-            'is_interested' => 'Is the student interested in this opportunity? (yes/no/maybe)',
-            'call_summary' => 'Please summarize this conversation for future reference regarding the student.'
+            'name' => 'What is the student’s name? (Student’s name only—never the AI agent’s name)',
+            'country' => 'Which country does the student want to study in? (Student’s info only)',
+            'subject' => 'What subject does the student want to pursue? (Student’s info only)',
+            'program' => 'Please specify the academic program the student is interested in. (Student’s info only)',
+            'IELTS_status' => 'What is the student’s current IELTS status? (e.g., not taken, band score) (Student’s info only)',
+            'CGPA' => 'What is the student’s current CGPA or grade point average? (Student’s info only)',
+            'is_interested' => 'Is the student interested in this opportunity? (yes/no/maybe) (Student’s info only)',
+            'call_summary' => 'Please summarize this conversation for future reference regarding the student. (Only details about the student; do not mention the AI agent)'
         ];
 
 
@@ -180,9 +190,9 @@ class WesternCallController extends Controller
             "welcome_message" => $request->customData['welcome_message'] ?? $request->welcome_message,
             "pause_message" => $request->customData['pause_message'] ?? $request->pause_message,
             "system_prompt" => $request->customData['call_prompt'] ?? $request->call_prompt,
-            // "webhook_prompt" => json_encode($webhook_prompt),
+            "webhook_prompt" => json_encode($webhook_prompt),
 
-            "webhook_prompt" => "{ 'name':'What is the students name?', 'country':'Which country does the student want to study in?', 'subject':'What subject does the student want to pursue?', 'program':'Please specify the academic program the student is interested in.','IELTS_status':'What is the students current IELTS status? (e.g., not taken, band score)', 'CGPA':'What is the students current CGPA or grade point average?', 'is_interested':'Is the student interested in this opportunity? (yes/no/maybe)', 'call_summary':'give me this conversation summary' }",
+            // "webhook_prompt" => "{ 'name':'What is the student’s name? (Student’s name only—never the AI agent’s name)', 'country':'Which country does the student want to study in? (Student’s info only)', 'subject':'What subject does the student want to pursue? (Student’s info only)', 'program':'Please specify the academic program the student is interested in. (Student’s info only)','IELTS_status':'What is the student’s current IELTS status? (e.g., not taken, band score) (Student’s info only)', 'CGPA':'What is the student’s current CGPA or grade point average? (Student’s info only)', 'is_interested':'Is the student interested in this opportunity? (yes/no/maybe) (Student’s info only)', 'call_summary':'Please summarize this conversation for future reference regarding the student. (Only details about the student; do not mention the AI agent)' }",
 
 
             // "webhook_prompt" => "{\'name\':\'What is the student\’s name?\',\'country\':\'Which country does the student want to study in?\',\'subject\':\'What subject does the student want to pursue?\',\'program\':\'Please specify the academic program the student is interested in.\',\'IELTS_status\':\'What is the student\’s current IELTS status? (e.g., not taken, band score)\',\'CGPA\':\'What is the student\’s current CGPA or grade point average?\',\'is_interested\':\'Is the student interested in this opportunity? (yes/no/maybe)\',\'call_summary\':\'Please summarize this conversation for future reference regarding the student.\'}",
@@ -254,11 +264,13 @@ class WesternCallController extends Controller
 
             if (WesternCall::where('call_id', $call_id)->exists()) {
                 $callInfo = WesternCall::where('call_id', $call_id)->first();
-                $need_update = false;
+                $need_update = true;
+                $callInfo->name = "outbound";
             } else {
                 $callInfo = new WesternCall();
                 $callInfo->call_id = $call_id;
                 $callInfo->name = "inbound";
+                $need_update = true;
             }
 
             $callInfo->response = json_encode($request->all());

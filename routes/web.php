@@ -5,11 +5,12 @@ use App\Http\Controllers\WesternCallController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    // return view('welcome');
-   $collection = updateCallData(41);
+     return view('welcome');
+//   $collection = updateCallData(41);
+//   $collection = updateCallDataPai(10);
 //    $response = json_decode($collection->response);
 //  $response->uuid;
-return $collection;
+// return $collection;
     // Example usage
 // $phoneNumber = '+44 20 7946 0958'; // Example UK number
 // $cleaned = removeCountryCode($phoneNumber);
@@ -18,19 +19,13 @@ return $collection;
 });
 
 Route::prefix('western')->group(function () {
-    Route::get('/system-update', [WesternCallController::class, 'systemUpdate']);
+    // Route::get('/system-update', [WesternCallController::class, 'systemUpdate']);
     Route::post('/send-call', [WesternCallController::class, 'sendCall']);
     Route::post('/callback-call', [WesternCallController::class, 'callbackCall']);
-
-    // Route::get('/call-status-update', [WesternCallController::class, 'CallStatusUpdate'])->name('call.status.update');
-    // Route::get('/info-send-gohighlevel', [WesternCallController::class, 'infoSendGohighlevel'])->name('info.send.gohighlevel');
 });
 
 Route::prefix('powerinai')->group(function () {
-    Route::get('/system-update', [PowerinaiController::class, 'systemUpdate']);
+    // Route::get('/system-update', [PowerinaiController::class, 'systemUpdate']);
     Route::post('/send-call', [PowerinaiController::class, 'sendCall']);
     Route::post('/callback-call', [PowerinaiController::class, 'callbackCall']);
-
-    // Route::get('/call-status-update', [PowerinaiController::class, 'CallStatusUpdate'])->name('call.status.update');
-    // Route::get('/info-send-gohighlevel', [PowerinaiController::class, 'infoSendGohighlevel'])->name('info.send.gohighlevel');
 });

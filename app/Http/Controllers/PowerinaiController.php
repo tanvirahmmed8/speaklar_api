@@ -10,185 +10,54 @@ class PowerinaiController extends Controller
     public function sendCall(Request $request)
     {
 
-        $cleanedPhone = removeCountryCode($request->phone);
+        // $cleanedPhone = removeCountryCode($request->phone);
+        $cleanedPhone = $request->phone;
 
         // API endpoint
         $url = 'https://powerinai.speaklar.com/api/api.php?id=call';
 
         // API authorization token
-        $authToken = '4a9273911b5098280e9cbc';
-
-        // Data to send in the POST request
-        // $data = [
-        //     "phone_number" => "$cleanedPhone",
-        //     "welcome_message" => $request->customData['welcome_message'] ?? $request->welcome_message,
-        //     "pause_message" => $request->customData['pause_message'] ?? $request->pause_message,
-        //             "system_prompt" => "System Prompt: Identity
-        // You are a friendly and efficient AI representative for Western Consulting Firm. Your primary goal is to schedule an appointment for students or encourage them to use the provided link to book an appointment. You engage in polite, helpful, and respectful conversations about studying abroad, ensuring students feel informed and comfortable.
-        // ________________________________________
-        // Conversation Style
-        // •	Tone: Friendly, respectful, and professional.
-        // •	Focus: Clear and goal-oriented, while being approachable.
-        // •	Adaptability: Match the student's energy and specific questions.
-        // ________________________________________
-        // Interactive Conversation Flow
-        // 1. Opening the Call
-        // Begin with a polite and engaging greeting:
-        // আপনার কি কথা বলার জন্য একটু সময় হবে?
-        // Transition into a personalized conversation:
-        // আমি দেখতে পাচ্ছি আপনি ইতিমধ্যেই একটি ফর্ম পূরণ করেছেন। আপনি কোন দেশে যেতে চান?
-        // ________________________________________
-        // 2. Handling Student Responses
-        // •	If the student mentions a specific country:
-        // Acknowledge and provide relevant university suggestions for that country. For example:
-        // আপনি Hungary-তে যেতে চাইলে University of Debrecen, Semmelweis University, Corvinus University of Budapest, Budapest University of Technology and Economics, University of Pécs, বা University of Miskolc নিয়ে ভাবতে পারেন। (Pause briefly between university names to ensure clarity.)
-        // •	If the student does not mention a specific country:
-        // Politely guide them:
-        // আপনার যদি নির্দিষ্ট কোনো দেশের কথা মনে না থাকে, তাহলে আমরা আপনাকে কিছু ভালো অপশন দেখাতে পারি।
-        // ________________________________________
-        // 3. Key Message and Offer Presentation
-        // Explain the services concisely:
-        // আমরা স্টুডেন্টদের ডকুমেন্ট এবং স্টুডেন্ট ফাইল প্রসেস করি, যাতে আপনার ভিসা প্রক্রিয়া দ্রুত এবং সহজ হয়।
-        // Highlight success stories naturally:
-        // •	আপনি জেনে খুশি হবেন, আমাদের মাধ্যমে প্রতি সেশনে শতাধিক স্টুডেন্ট বাংলাদেশ থেকে বিভিন্ন দেশে পড়তে যাচ্ছেন।
-        // •	আমরা ইউরোপ, Middle East এবং এশিয়ার শীর্ষস্থানীয় ইউনিভার্সিটির সঙ্গে কাজ করি।
-        // Present the promotional offer:
-        // আপনি যদি আজ আমাদের লিংক থেকে অ্যাপয়েন্টমেন্ট বুক করেন, তাহলে আপনি ফ্রি কাউন্সেলিং সহ ফাইল ওপেনিংয়ে ১০% ডিসকাউন্ট পাবেন।
-        // ________________________________________
-        // 4. Handling Unrelated Questions
-        // •	For questions unrelated to student visas:
-        // এই বিষয়ে আমার ধারণা নেই। আপনি কি স্টুডেন্ট ভিসা সম্পর্কে আর কিছু জানতে চান?
-        // •	For related student visa questions the AI cannot answer:
-        // আমাদের প্রতিনিধি আপনাকে এই বিষয়ে সাহায্য করতে পারবেন, যদি আপনি একটি অ্যাপয়েন্টমেন্ট বুক করেন।
-        // ________________________________________
-        // 5. Booking Link Mentions (Maximum 2 Times)
-        // The AI caller can mention the booking link or discuss its usage a maximum of 2 times during the call. Exceeding this limit is not allowed.
-        // Examples of how to incorporate it naturally:
-        // •	আমি এখন আপনাকে একটি লিংক পাঠাচ্ছি, যেখানে আপনি অ্যাপয়েন্টমেন্ট বুক করতে পারবেন।
-        // •	আপনি লিংক থেকে অ্যাপয়েন্টমেন্ট বুক করলে আমরা দ্রুত আপনার ফাইল প্রসেস শুরু করতে পারব।
-        // ________________________________________
-        // 6. Closing the Call
-        // •	End the call politely:
-        // ধন্যবাদ। আশা করি আমরা আপনাকে সাহায্য করতে পারব।
-        // •	Confirm next steps:
-        // আমি এখন আপনার জন্য অ্যাপয়েন্টমেন্ট লিংক পাঠাচ্ছি। আপনার কোনো প্রশ্ন থাকলে আমাদের সাথে যোগাযোগ করবেন।
-        // •	Finish warmly:
-        // ভালো থাকবেন। ইনশাআল্লাহ শিগগিরই দেখা হবে।
-        // ________________________________________
-        // Conversation Tips
-        // •	Avoid conversational fillers like “দারুণ! আপনার সাথে কথা বলে ভালো লাগছে।”
-        // •	Maintain focus on the student’s study goals and the appointment booking.
-        // •	Always guide students back to relevant student visa topics or booking an appointment.
-        // ________________________________________
-        // Key Features to Highlight
-        // •	Simplified document and file processing for student visa applications.
-        // •	Free consultation and 10% discount if the appointment is booked today.
-        // •	Flexible meeting options: in-office or online.
-        // ________________________________________
-        // Knowledge Bank
-        // •	Company Address:
-        // হাউস নং-২৯, ফ্ল্যাট  এম-এ, রোড-৬, ধানমন্ডি, ঢাকা, বাংলাদেশ।
-        // •	Always emphasize the benefits of booking an appointment using the provided link.
-        // •	United Kingdom (UK):
-        // The UK is renowned for its world-class universities, such as Oxford, Cambridge, and Imperial College London. It offers a wide range of programs in business, law, engineering, and creative arts. With shorter course durations and extensive post-study work opportunities, it remains a top destination for international students.
-        // •	Ireland:
-        // Known for its welcoming environment and strong focus on technology, healthcare, and business programs, Ireland provides excellent opportunities for international students. Its growing tech industry makes it particularly attractive for IT and engineering students.
-        // •	Denmark:
-        // Denmark stands out for its innovation-driven education system and affordable tuition fees. It’s a great choice for programs in sustainable development, engineering, and design. With a high standard of living and vibrant cities, Denmark is a perfect blend of quality education and culture.
-        // •	Hungary:
-        // Hungary is popular for its affordability and high-quality education, especially in medicine, engineering, and business. Universities like Semmelweis and the University of Debrecen are globally recognized for their academic excellence.
-        // •	Cyprus:
-        // Cyprus is an emerging destination for students looking for affordable programs in hospitality, tourism, business, and healthcare. Its strategic location offers international exposure, and many universities provide courses in English, making it accessible for global students.
-        // •	Dubai:
-        // Dubai combines cutting-edge education with a multicultural environment. It offers top-notch programs in business, IT, engineering, and hospitality. Dubai’s growing economy provides unique internship and job opportunities for students during and after their studies.
-        // United Kingdom (UK):
-        // 1.	University of Oxford
-        // 2.	University of Cambridge
-        // 3.	Imperial College London
-        // 4.	London School of Economics and Political Science (LSE)
-        // 5.	University College London (UCL)
-        // ________________________________________
-        // Ireland:
-        // 1.	Trinity College Dublin
-        // 2.	University College Dublin (UCD)
-        // 3.	National University of Ireland, Galway (NUI Galway)
-        // 4.	University College Cork (UCC)
-        // 5.	Dublin City University (DCU)
-        // ________________________________________
-        // Denmark:
-        // 1.	University of Copenhagen
-        // 2.	Aarhus University
-        // 3.	Technical University of Denmark (DTU)
-        // 4.	Aalborg University
-        // 5.	Copenhagen Business School (CBS)
-        // ________________________________________
-        // Hungary:
-        // 1.	Semmelweis University
-        // 2.	University of Debrecen
-        // 3.	Corvinus University of Budapest
-        // 4.	Budapest University of Technology and Economics
-        // 5.	University of Pécs
-        // ________________________________________
-        // Cyprus:
-        // 1.	University of Cyprus
-        // 2.	Cyprus International University
-        // 3.	European University Cyprus
-        // 4.	Frederick University
-        // 5.	Near East University
-        // ________________________________________
-        // Dubai (United Arab Emirates):
-        // 1.	American University in Dubai (AUD)
-        // 2.	University of Dubai
-        // 3.	Middlesex University Dubai
-        // 4.	Heriot-Watt University Dubai
-        // 5.	Zayed University
-        // ",
-        //     "system_prompt" => $request->customData['call_prompt'] ?? $request->call_prompt,
-        //     "webhook" => "http://68.183.189.27/powerinai/callback-call",
-        //     "webhook_prompt" => '{"name":...,
-        //     "country":...,
-        //     "subject":...,
-        //     "program":...,
-        //     "IELTS_status":...,
-        //     "CGPA":...,
-        //     "is_interested":"yes/no/maybe",
-        //     "call_summary":"give me this conversation summary"
-        //     }',
-        //     "carrier" => "776666",
-        //     "extension" => "5004"
-        // ];
-
+        $authToken = '4f239e8837559bdd543a9c';
 
         $webhook_prompt = [
-            'name' => 'What is the student’s name?',
-            'country' => 'Which country does the student want to study in?',
-            'subject' => 'What subject does the student want to pursue?',
-            'program' => 'Please specify the academic program the student is interested in.',
-            'IELTS_status' => 'What is the student’s current IELTS status? (e.g., not taken, band score)',
-            'CGPA' => 'What is the student’s current CGPA or grade point average?',
-            'is_interested' => 'Is the student interested in this opportunity? (yes/no/maybe)',
-            'call_summary' => 'Please summarize this conversation for future reference regarding the student.'
+            // Capture the client's name (not the AI agent's name)
+            "name" => 'What is the client’s name? (Client’s info only)',
+            // Capture the business or company name
+            "business_name" => 'What is the name of the client’s business?',
+            // Identify the client’s primary goal or challenge
+            "main_goal_or_challenge" => 'What is the biggest goal or challenge the client wants to address with PowerinAI?',
+            // Determine which processes or areas the client wants to automate
+            "automation_focus" => 'Which processes does the client want to automate or streamline?',
+            // Understand the client's current communication methods
+            "current_communication_methods" => 'How is the client currently managing customer communication?',
+            // Gather the client’s preference for a demo date/time
+            "demo_scheduling_preference" => 'When is the client available/prefer to schedule the demo?',
+             // Check if the client is interested in proceeding or scheduling
+            'is_interested' => 'Is the client interested in this solution or scheduling a demo? (yes/no/maybe) (Client’s info only)',
+            // General summary of the call, focusing on the client’s needs and context
+            "call_summary" => 'Please summarize the conversation regarding the client’s specific needs, challenges, and desired outcomes.'
         ];
 
 
         // Data to be sent in the request
         $data = [
             "phone_number" => "$cleanedPhone",
-            "carrier" => "776666",
+            "carrier" => "16698001492",
             "extension" => "5003",
             "pause" => 10,
             "welcome_message" => $request->customData['welcome_message'] ?? $request->welcome_message,
             "pause_message" => $request->customData['pause_message'] ?? $request->pause_message,
             "system_prompt" => $request->customData['call_prompt'] ?? $request->call_prompt,
-            // "webhook_prompt" => json_encode($webhook_prompt),
+            "webhook_prompt" => json_encode($webhook_prompt),
 
-            "webhook_prompt" => "{ 'name':'What is the students name?', 'country':'Which country does the student want to study in?', 'subject':'What subject does the student want to pursue?', 'program':'Please specify the academic program the student is interested in.','IELTS_status':'What is the students current IELTS status? (e.g., not taken, band score)', 'CGPA':'What is the students current CGPA or grade point average?', 'is_interested':'Is the student interested in this opportunity? (yes/no/maybe)', 'call_summary':'give me this conversation summary' }",
+            // "webhook_prompt" => "{ 'name':'What is the client’s name? (Client’s info only)', 'business_name':'What is the name of the client’s business?', 'main_goal_or_challenge':'What is the biggest goal or challenge the client wants to address with PowerinAI?','automation_focus':'Which processes does the client want to automate or streamline?', 'current_communication_methods':'How is the client currently managing customer communication?','demo_scheduling_preference':'When is the client available/prefer to schedule the demo?', 'is_interested':'Is the client interested in this solution or scheduling a demo? (yes/no/maybe) (Client’s info only)', 'call_summary':'Please summarize the conversation regarding the client’s specific needs, challenges, and desired outcomes.' }",
 
 
             // "webhook_prompt" => "{\'name\':\'What is the student\’s name?\',\'country\':\'Which country does the student want to study in?\',\'subject\':\'What subject does the student want to pursue?\',\'program\':\'Please specify the academic program the student is interested in.\',\'IELTS_status\':\'What is the student\’s current IELTS status? (e.g., not taken, band score)\',\'CGPA\':\'What is the student\’s current CGPA or grade point average?\',\'is_interested\':\'Is the student interested in this opportunity? (yes/no/maybe)\',\'call_summary\':\'Please summarize this conversation for future reference regarding the student.\'}",
 
             "webhook" => "http://68.183.189.27/powerinai/callback-call",
         ];
+
 
         // Initialize cURL
         $ch = curl_init();
@@ -244,6 +113,7 @@ class PowerinaiController extends Controller
         return response()->json($callInfo, 200);
     }
 
+
     public function callbackCall(Request $request)
     {
 
@@ -254,11 +124,13 @@ class PowerinaiController extends Controller
 
             if (Powerinai::where('call_id', $call_id)->exists()) {
                 $callInfo = Powerinai::where('call_id', $call_id)->first();
-                $need_update = false;
+                $need_update = true;
+                $callInfo->name = "outbound";
             } else {
                 $callInfo = new Powerinai();
                 $callInfo->call_id = $call_id;
                 $callInfo->name = "inbound";
+                $need_update = true;
             }
 
             $callInfo->response = json_encode($request->all());
@@ -274,7 +146,7 @@ class PowerinaiController extends Controller
 
         if($need_update){
             sleep(3);
-            updateCallDataPai($callInfo->id);
+          //  updateCallDataPai($callInfo->id);
         }
 
         return response()->json($callInfo, 200);
@@ -288,7 +160,7 @@ class PowerinaiController extends Controller
          $url = "https://powerinai.speaklar.com/api/api.php?id=$id";
 
         // API authorization token
-        $authToken = '4a9273911b5098280e9cbc';
+        $authToken = '4f239e8837559bdd543a9c';
 
         // Data to send in the POST request
         $data = [
