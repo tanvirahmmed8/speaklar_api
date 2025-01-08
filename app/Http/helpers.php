@@ -2,7 +2,6 @@
 
 use App\Models\Powerinai;
 use App\Models\WesternCall;
-use Illuminate\Support\Str;
 
 function removeCountryCode($phoneNumber)
 {
@@ -252,153 +251,6 @@ function removeCountryCode($phoneNumber)
 }
 
 
-
-// function updateCallData($id)
-// {
-
-//     $call = WesternCall::find($id);
-//     //     // return $call->response;
-//     //     // return json_decode($call->response)->webhook_response;
-
-//     //     // Decode the JSON data
-//     // $responseArray = json_decode($call->response, true);
-
-
-//     // // Check if 'webhook_response' exists
-//     // if (isset($responseArray['webhook_response'])) {
-//     //     // Get the webhook_response
-//     //     $webhookResponseString = $responseArray['webhook_response'];
-
-//     //     // Decode the modified webhook_response string
-//     //     $webhookResponse = json_decode($webhookResponseString, true);
-
-//     //     // Check for JSON errors and if 'name' exists
-//     //     if (json_last_error() === JSON_ERROR_NONE && isset($webhookResponse['name'])) {
-//     //         $name = $webhookResponse['name'];
-//     //         echo "Name: " . $name; // Output: Name: অনীক
-//     //     } else {
-//     //         echo "Name not found in webhook response. Error: " . json_last_error_msg();
-//     //         echo "Webhook Response: " . $webhookResponseString; // Output the response for debug
-//     //     }
-//     // } else {
-//     //     echo "webhook_response not found in JSON data.";
-//     // }
-
-//     // die();
-
-//     if (!$call) {
-//         return false;
-//     }
-//     // API endpoint
-//     $url = 'https://ai.speaklar.com/api/api.php?id=call_details';
-
-//     $status = false;
-
-
-//     $authToken = '4a9273911b5098280e9cbc';
-//     $webhook_url = 'https://services.leadconnectorhq.com/hooks/jbqBCI8qUQX3idpEyWym/webhook-trigger/ca2a2cc6-d92a-4291-9452-a81c98bc287a';
-
-
-
-
-//     // Data to send in the POST request
-//     $data = [
-//         "uuid" => $call->call_id
-//     ];
-
-//     // Initialize cURL
-//     $ch = curl_init();
-
-//     // Set cURL options
-//     curl_setopt($ch, CURLOPT_URL, $url);
-//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//     curl_setopt($ch, CURLOPT_POST, true);
-//     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-//         'Authorization: Bearer ' . $authToken,
-//         'Content-Type: application/json',
-//     ]);
-//     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-
-//     // Execute the cURL request
-//     $response = curl_exec($ch);
-//     $response = json_decode($response);
-
-//     // Check for errors
-//     if (curl_errno($ch)) {
-//         echo 'Error: ' . curl_error($ch);
-//     } else {
-//         // Print the response
-//         // print_r(json_decode($response));
-//         $status = true;
-//     }
-
-//     // Close the cURL session
-//     curl_close($ch);
-
-
-
-//     if ($status) {
-//         // return $response;
-//         // return $response[0]->audio_url;
-//         // return $call->phone;
-
-//         // $call_response = json_decode($call->response);
-
-//         // $webhook_response = json_decode($call_response->webhook_response);
-//         //    return $call_response->webhook_response;
-
-
-//         // Decode the JSON response stored in the 'response' field
-//         $call_response = json_decode($call->response);
-
-//         // Access the 'webhook_response' which also needs to be decoded if it's a string
-//         $webhook_response = Str::replace("{", '', $call_response->webhook_response);
-//         $webhook_response = Str::replace("}", '', $webhook_response);
-//         $webhook_response = explode(':', $webhook_response);
-//         //    $webhook_response = json_decode($webhook_response, true);
-
-//         // Now we can access the 'call_summary'
-//         // if (isset($call_response->webhook_response)) {
-//         $webhook_in = explode(',', $webhook_response[7]);
-//         $is_interested = $webhook_in[0]; // Return the call summary
-//         $summary = $webhook_response[8]; // Return the call summary
-//         // } else {
-//         //     return 'Call summary not found.'; // Return a message if call_summary doesn't exist
-//         // }
-
-//         // die();
-//         // ghl code
-//         $sendData = [
-//             "summary" => $summary,
-//             "phone" => $call->phone,
-//             "call_id" => $call->call_id,
-//             "inbound" => $call->name == 'inbound' ? 'YES' : 'NO',
-//             "recording_url" => $response[0]->audio_url ?? '',
-//             "is_interested" => $is_interested,
-//             "status" => $response[0]->disposition ?? ''
-//         ];
-
-
-//         $curl = curl_init();
-
-//         curl_setopt_array($curl, array(
-//             CURLOPT_URL => $webhook_url,
-//             CURLOPT_RETURNTRANSFER => true,
-//             CURLOPT_ENCODING => '',
-//             CURLOPT_MAXREDIRS => 10,
-//             CURLOPT_TIMEOUT => 0,
-//             CURLOPT_FOLLOWLOCATION => true,
-//             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//             CURLOPT_CUSTOMREQUEST => 'POST',
-//             CURLOPT_POSTFIELDS => $sendData
-//         ));
-
-//         $response = curl_exec($curl);
-//         $err = curl_error($curl);
-//         curl_close($curl);
-//     }
-// }
-
 function updateCallDataPai($id)
 {
 
@@ -473,6 +325,10 @@ function updateCallDataPai($id)
             ];
 
 
+            $call->is_call_completed = $response[0]->disposition ?? null;
+            $call->is_send_gohihglevel = true;
+            $call->save();
+
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
@@ -490,6 +346,9 @@ function updateCallDataPai($id)
             $response = curl_exec($curl);
             $err = curl_error($curl);
             curl_close($curl);
+
+
+
         }
     }
 }
@@ -567,6 +426,9 @@ function updateCallData($id)
              "status" => $response[0]->disposition ?? ''
             ];
 
+            $call->is_call_completed = $response[0]->disposition ?? null;
+            $call->is_send_gohihglevel = true;
+            $call->save();
 
             $curl = curl_init();
 

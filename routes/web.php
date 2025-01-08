@@ -19,14 +19,14 @@ Route::get('/', function () {
 });
 
 Route::prefix('western')->group(function () {
-    // Route::get('/system-update', [WesternCallController::class, 'systemUpdate']);
+    Route::get('/system-update', [WesternCallController::class, 'systemUpdate']);
     Route::get('/', [WesternCallController::class, 'index']);
     Route::post('/send-call', [WesternCallController::class, 'sendCall']);
     Route::post('/callback-call', [WesternCallController::class, 'callbackCall']);
 });
 
 Route::prefix('powerinai')->group(function () {
-    // Route::get('/system-update', [PowerinaiController::class, 'systemUpdate']);
+    Route::get('/system-update', [PowerinaiController::class, 'systemUpdate']);
     Route::get('/', [PowerinaiController::class, 'index']);
     Route::post('/send-call', [PowerinaiController::class, 'sendCall']);
     Route::post('/callback-call', [PowerinaiController::class, 'callbackCall']);
