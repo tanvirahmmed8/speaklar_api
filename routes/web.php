@@ -26,8 +26,10 @@ Route::prefix('western')->group(function () {
 });
 
 Route::prefix('powerinai')->group(function () {
-    Route::get('/system-update', [PowerinaiController::class, 'systemUpdate']);
+    // Route::get('/system-update', [PowerinaiController::class, 'systemUpdate']);
     Route::get('/', [PowerinaiController::class, 'index']);
     Route::post('/send-call', [PowerinaiController::class, 'sendCall']);
+    Route::post('/send-call-bn', [PowerinaiController::class, 'sendCallBn']);
     Route::post('/callback-call', [PowerinaiController::class, 'callbackCall']);
+    Route::post('/callback-call-bn', [PowerinaiController::class, 'callbackCallBn']);
 });
