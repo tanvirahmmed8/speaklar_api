@@ -459,7 +459,7 @@ function updateCallDataPai($id)
           $sendData = [
              "phone" => $call->phone,
              "call_id" => $call->call_id,
-             "inbound" => $call->name == 'inbound' ? 'YES' : 'NO',
+             "inbound" => $call->name == 'outbound' ? 'NO' : 'YES',
              "recording_url" => $response[0]->audio_url ?? '',
              "is_interested" => $call_response_a->is_interested ?? '',
              "name" => $call_response_a->name ?? '',
@@ -554,7 +554,7 @@ function updateCallData($id)
           $sendData = [
              "phone" => $call->phone,
              "call_id" => $call->call_id,
-             "inbound" => $call->name == 'inbound' ? 'YES' : 'NO',
+             "inbound" => $call->name == 'outbound' ? 'NO' : 'YES',
              "recording_url" => $response[0]->audio_url ?? '',
              "name" => $call_response_a->name ?? '',
              "country" => $call_response_a->country ?? '',

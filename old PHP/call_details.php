@@ -10,7 +10,7 @@ $authToken = '4f239e8837559bdd543a9c';
 
 // Data to send in the POST request
 $data = [
-    "uuid" => "c3fa4db3a1831dcd924591f5765bc6fe"
+    "uuid" => "3f5e91a9e3c21d8fae20a603413def1c"
 ];
 
 // Initialize cURL

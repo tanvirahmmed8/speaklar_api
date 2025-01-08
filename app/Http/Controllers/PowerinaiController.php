@@ -122,6 +122,12 @@ class PowerinaiController extends Controller
 
         $call_id = null;
         $need_update = false;
+        $phn = null;
+
+        if(isset($request->src)){
+            $phn = "+".$request->src;
+        }
+
         if (isset($request->uuid)) {
             $call_id = $request->uuid;
 
@@ -132,6 +138,7 @@ class PowerinaiController extends Controller
             } else {
                 $callInfo = new Powerinai();
                 $callInfo->call_id = $call_id;
+                $callInfo->phone = $phn;
                 $callInfo->name = "inbound";
                 $need_update = true;
             }
@@ -141,6 +148,7 @@ class PowerinaiController extends Controller
         } else {
             $callInfo = new Powerinai();
             $callInfo->name = $call_id;
+            $callInfo->phone = $phn;
             $callInfo->response = json_encode($request->all());
             $callInfo->save();
         }

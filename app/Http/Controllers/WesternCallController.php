@@ -262,6 +262,13 @@ class WesternCallController extends Controller
 
         $call_id = null;
         $need_update = false;
+
+        $phn = null;
+
+        if(isset($request->src)){
+            $phn = "+".$request->src;
+        }
+
         if (isset($request->uuid)) {
             $call_id = $request->uuid;
 
@@ -273,6 +280,7 @@ class WesternCallController extends Controller
                 $callInfo = new WesternCall();
                 $callInfo->call_id = $call_id;
                 $callInfo->name = "inbound";
+                $callInfo->phone = $phn;
                 $need_update = true;
             }
 
@@ -281,6 +289,7 @@ class WesternCallController extends Controller
         } else {
             $callInfo = new WesternCall();
             $callInfo->name = $call_id;
+            $callInfo->phone = $phn;
             $callInfo->response = json_encode($request->all());
             $callInfo->save();
         }
