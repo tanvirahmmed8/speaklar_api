@@ -23,13 +23,11 @@ class PowerinaiController extends Controller
         // API authorization token
         $authToken = '4f239e8837559bdd543a9c';
 
-        $languageData = [
-            'id' => 'outbound', // replace with your actual id
-            'language' => $request->customData['language'] ?? 'en-US' // or any other language you want to test
-        ];
+        // Prepare the language data
+        $languageData = $request->customData['language'] ?? 'en-US';
 
         // Call the systemUpdate method directly
-        $this->systemUpdate(new Request($languageData));
+        systemUpdatePai($languageData);
 
 
         $webhook_prompt = [

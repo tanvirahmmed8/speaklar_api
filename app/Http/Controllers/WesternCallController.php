@@ -23,13 +23,10 @@ class WesternCallController extends Controller
         $authToken = '4a9273911b5098280e9cbc';
 
         // Prepare the language data
-        $languageData = [
-            'id' => 'outbound', // replace with your actual id
-            'language' => $request->customData['language'] ?? 'bn-IN' // or any other language you want to test
-        ];
+        $languageData = $request->customData['language'] ?? 'bn-IN';
 
         // Call the systemUpdate method directly
-        $this->systemUpdate(new Request($languageData));
+        systemUpdateWes($languageData);
 
         $webhook_prompt = [
             'name' => 'What is the student’s name? (Student’s name only—never the AI agent’s name)',
