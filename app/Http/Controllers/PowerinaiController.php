@@ -146,7 +146,7 @@ class PowerinaiController extends Controller
 
         if($need_update){
             sleep(3);
-          //  updateCallDataPai($callInfo->id);
+           updateCallDataPai($callInfo->id);
         }
 
         return response()->json($callInfo, 200);
