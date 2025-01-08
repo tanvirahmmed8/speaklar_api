@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class WesternCallController extends Controller
 {
+    public function index()  {
+        return WesternCall::all();
+    }
     public function sendCall(Request $request)
     {
 

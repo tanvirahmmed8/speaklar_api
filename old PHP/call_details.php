@@ -1,14 +1,16 @@
 <?php
 
 // API endpoint
-$url = 'https://ai.speaklar.com/api/api.php?id=call_details';
+// $url = 'https://ai.speaklar.com/api/api.php?id=call_details';
+$url = 'https://powerinai.speaklar.com/api/api.php?id=call_details';
 
 // API authorization token
-$authToken = '4a9273911b5098280e9cbc';
+// $authToken = '4a9273911b5098280e9cbc';
+$authToken = '4f239e8837559bdd543a9c';
 
 // Data to send in the POST request
 $data = [
-    "uuid" => "fe28f0eeac0a103f83b56a29d17cac93"
+    "uuid" => "c3fa4db3a1831dcd924591f5765bc6fe"
 ];
 
 // Initialize cURL
@@ -39,6 +41,6 @@ if (curl_errno($ch)) {
 // Close the cURL session
 curl_close($ch);
 
-$response = json_decode($response);
-echo $response->message;
+// $response = json_decode($response);
+echo $response;
 ?>

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class PowerinaiController extends Controller
 {
+    public function index()  {
+        return Powerinai::all();
+    }
     public function sendCall(Request $request)
     {
 
