@@ -101,6 +101,7 @@ class WesternCallController extends Controller
         $callInfo->call_id = $call_id;
         $callInfo->status = $status;
         $callInfo->message = $message;
+        $callInfo->call_type = $request->customData['call_type'] ?? 'default';
         $callInfo->err_message = $err_message;
         $callInfo->save();
 

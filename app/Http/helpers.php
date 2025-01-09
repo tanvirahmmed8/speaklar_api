@@ -321,7 +321,8 @@ function updateCallDataPai($id)
              "current_communication_methods" => $call_response_a->current_communication_methods ?? '',
              "demo_scheduling_preference" => $call_response_a->demo_scheduling_preference ?? '',
              "summary" => $call_response_a->call_summary ?? '',
-             "status" => $response[0]->disposition ?? ''
+             "status" => $response[0]->disposition ?? '',
+             "call_type" => $call->call_type
             ];
 
 
@@ -422,7 +423,8 @@ function updateCallDataPaiBn($id)
              "current_communication_methods" => $call_response_a->current_communication_methods ?? '',
              "demo_scheduling_preference" => $call_response_a->demo_scheduling_preference ?? '',
              "summary" => $call_response_a->call_summary ?? '',
-             "status" => $response[0]->disposition ?? ''
+             "status" => $response[0]->disposition ?? '',
+             "call_type" => $call->call_type
             ];
 
 
@@ -524,7 +526,8 @@ function updateCallData($id)
              "CGPA" => $call_response_a->CGPA ?? '',
              "is_interested" => $call_response_a->is_interested ?? '',
              "summary" => $call_response_a->call_summary ?? '',
-             "status" => $response[0]->disposition ?? ''
+             "status" => $response[0]->disposition ?? '',
+             "call_type" => $call->call_type
             ];
 
             $call->is_call_completed = $response[0]->disposition ?? null;
