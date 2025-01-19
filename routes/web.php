@@ -19,8 +19,8 @@ Route::get('/', function () {
 });
 
 Route::prefix('western')->group(function () {
-    Route::get('/system-update', [WesternCallController::class, 'systemUpdate']);
     Route::get('/', [WesternCallController::class, 'index']);
+    Route::get('/system-update', [WesternCallController::class, 'systemUpdate']);
     Route::post('/send-call', [WesternCallController::class, 'sendCall']);
     Route::post('/callback-call', [WesternCallController::class, 'callbackCall']);
 });

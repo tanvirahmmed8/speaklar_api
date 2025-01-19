@@ -17,7 +17,7 @@ class WesternCallController extends Controller
         $cleanedPhone = removeCountryCode($request->phone);
 
         // API endpoint
-        $url = 'https://ai.speaklar.com/api/api.php?id=call';
+        $url = 'https://western.speaklar.com/api/api.php?id=call';
 
         // API authorization token
         $authToken = '4a9273911b5098280e9cbc';
@@ -26,7 +26,7 @@ class WesternCallController extends Controller
         $languageData = $request->customData['language'] ?? 'bn-IN';
 
         // Call the systemUpdate method directly
-        systemUpdateWes($languageData);
+        // systemUpdateWes($languageData);
 
         $webhook_prompt = [
             'name' => 'What is the student’s name? (Student’s name only—never the AI agent’s name)',
@@ -72,7 +72,6 @@ class WesternCallController extends Controller
 
         // Close the cURL session
         curl_close($ch);
-
 
         $status = false;
         $call_id = null;
@@ -161,7 +160,7 @@ class WesternCallController extends Controller
         $id = isset($request->id) ? $request->id : 'outbound';
         $language = isset($request->language) ? $request->language : 'bn-IN';
         // API endpoint
-        $url = "https://ai.speaklar.com/api/api.php?id=$id";
+        $url = "https://western.speaklar.com/api/api.php?id=$id";
 
         // API authorization token
         $authToken = '4a9273911b5098280e9cbc';

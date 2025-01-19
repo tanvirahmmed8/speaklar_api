@@ -53,7 +53,7 @@ class PowerinaiController extends Controller
         // Data to be sent in the request
         $data = [
             "phone_number" => "$cleanedPhone",
-            "carrier" => "16698001492",
+            "carrier" => "911035",
             "extension" => "5003",
             "pause" => 10,
             "welcome_message" => $request->customData['welcome_message'] ?? $request->welcome_message,
@@ -125,7 +125,7 @@ class PowerinaiController extends Controller
         // $cleanedPhone = $request->phone;
 
       // API endpoint
-      $url = 'https://ai.speaklar.com/api/api.php?id=call';
+      $url = 'https://western.speaklar.com/api/api.php?id=call';
 
       // API authorization token
       $authToken = '4a9273911b5098280e9cbc';

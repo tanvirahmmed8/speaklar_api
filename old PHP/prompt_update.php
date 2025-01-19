@@ -1,7 +1,7 @@
 <?php
 
 // API endpoint
-$url = 'https://ai.speaklar.com/api/api.php?id=outbound';
+$url = 'https://western.speaklar.com/api/api.php?id=outbound';
 
 // API authorization token
 $authToken = '4a9273911b5098280e9cbc';

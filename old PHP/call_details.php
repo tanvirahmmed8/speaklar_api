@@ -1,7 +1,7 @@
 <?php
 
 // API endpoint
-// $url = 'https://ai.speaklar.com/api/api.php?id=call_details';
+// $url = 'https://western.speaklar.com/api/api.php?id=call_details';
 $url = 'https://powerinai.speaklar.com/api/api.php?id=call_details';
 
 // API authorization token
