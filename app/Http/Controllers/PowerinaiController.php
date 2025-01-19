@@ -125,7 +125,7 @@ class PowerinaiController extends Controller
         // $cleanedPhone = $request->phone;
 
       // API endpoint
-      $url = 'https://western.speaklar.com/api/api.php?id=call';
+      $url = 'https://westernai.speaklar.com/api/api.php?id=call';
 
       // API authorization token
       $authToken = '4a9273911b5098280e9cbc';

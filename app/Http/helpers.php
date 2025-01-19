@@ -363,7 +363,7 @@ function updateCallDataPaiBn($id)
     }
 
     // API endpoint
-    $url = 'https://western.speaklar.com/api/api.php?id=call_details';
+    $url = 'https://westernai.speaklar.com/api/api.php?id=call_details';
     $status = false;
     $authToken = '4a9273911b5098280e9cbc';
     $webhook_url = "https://services.leadconnectorhq.com/hooks/FFoC8B5sSLMlbYaQ4Tcz/webhook-trigger/14dfb751-ae5b-499c-8e82-adac3ac24d8b";
@@ -466,7 +466,7 @@ function updateCallData($id)
     }
 
     // API endpoint
-    $url = 'https://western.speaklar.com/api/api.php?id=call_details';
+    $url = 'https://westernai.speaklar.com/api/api.php?id=call_details';
     $status = false;
     $authToken = '4a9273911b5098280e9cbc';
     $webhook_url = 'https://services.leadconnectorhq.com/hooks/jbqBCI8qUQX3idpEyWym/webhook-trigger/ca2a2cc6-d92a-4291-9452-a81c98bc287a';
@@ -562,7 +562,7 @@ function systemUpdateWes($language = 'bn-IN')
 
     $id = 'outbound';
     // API endpoint
-    $url = "https://western.speaklar.com/api/api.php?id=$id";
+    $url = "https://westernai.speaklar.com/api/api.php?id=$id";
 
     // API authorization token
     $authToken = '4a9273911b5098280e9cbc';

@@ -17,7 +17,7 @@ class WesternCallController extends Controller
         $cleanedPhone = removeCountryCode($request->phone);
 
         // API endpoint
-        $url = 'https://western.speaklar.com/api/api.php?id=call';
+        $url = 'https://westernai.speaklar.com/api/api.php?id=call';
 
         // API authorization token
         $authToken = '4a9273911b5098280e9cbc';
@@ -160,7 +160,7 @@ class WesternCallController extends Controller
         $id = isset($request->id) ? $request->id : 'outbound';
         $language = isset($request->language) ? $request->language : 'bn-IN';
         // API endpoint
-        $url = "https://western.speaklar.com/api/api.php?id=$id";
+        $url = "https://westernai.speaklar.com/api/api.php?id=$id";
 
         // API authorization token
         $authToken = '4a9273911b5098280e9cbc';
