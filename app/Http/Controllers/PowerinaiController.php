@@ -160,7 +160,7 @@ class PowerinaiController extends Controller
         // Data to be sent in the request
         $data = [
             "phone_number" => "$cleanedPhone",
-            "carrier" => "776666",
+            "carrier" => "911035",
             "extension" => "5004",
             "pause" => 10,
             "welcome_message" => $request->customData['welcome_message'] ?? $request->welcome_message,
